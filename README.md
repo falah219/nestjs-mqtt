@@ -45,13 +45,3 @@ A simple NestJS application that accepts POST requests and forwards the data to 
    ```
 
 3. Access the application at [http://localhost:3000](http://localhost:3000).
-
-## Endpoints
-- `POST /data` - Accepts a JSON payload and forwards it to the MQTT broker.
-
-## Example Payload
-```json
-{
-  "key": "exampleKey",
-  "value": "exampleValue"
-}
