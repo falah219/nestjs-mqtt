@@ -1,11 +1,32 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Get } from '@nestjs/common';
 import { MyService } from './mqtt/my.service';
-import { ApiTags, ApiOperation, ApiBody } from '@nestjs/swagger';
+import { ApiTags, ApiResponse,ApiOperation, ApiBody } from '@nestjs/swagger';
 import { PublishDto, SubscribeDto } from './mqtt/mqtt.dto';
 
-@Controller()
+@Controller('data')
 export class AppController {
-  constructor(private readonly myService: MyService) {}
+  constructor(private readonly myService: MyService) { }
+
+  @Get()
+  @ApiOperation({ summary: 'Get data in JSON format' })
+  @ApiResponse({
+    status: 200,
+    description: 'Data retrieved successfully',
+    schema: {
+      example: {
+        message: 'Data received successfully!',
+        timestamp: new Date().toISOString(),
+        status: 'success',
+      },
+    },
+  })
+  getData(): any {
+    return {
+      message: 'Data received successfully!',
+      timestamp: new Date().toISOString(),
+      status: 'success',
+    };
+  }
 
   @Post('publish')
   @ApiOperation({ summary: 'Publish a message to an MQTT topic' })
